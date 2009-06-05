@@ -1,0 +1,41 @@
+Airtruk - The network configuration generator thingey doodad.
+
+This is as close of a replication of the 'Overlord' application presented
+at RailsConf 2009. Jason LaPorte of Agora Games presented 'PWN Your
+Infrastructure Behind Call of Duty: World at War' and gave a few screenshots
+of a fantastic looking application that would feed a configuration script
+to a machine based on it's hostname.
+
+I thought, "hey, i want one of those." So i made one.
+
+Airtruk will allow you to configure an arbitrary set of files to be replaced
+on a machine. If you omit a filename, those scripts will be executed instead.
+
+You configure machines based on their hostname, and you set up shell scripts
+based on some arbitrary configuration name (load-balancer-pound, primary-mysql)
+Whatever you want, really. On the main page, you click the '+' to add it to a
+machine and the '-' to remove it. When the machine asks for it's configuration,
+the app will feed it a shell script that it can execute.
+
+To install the application, just load it up using your favorite rack
+compatible web server and run 'rake db:migrate' to create your database. It
+uses Sqlite3 all the time. It doesn't need anything more, really.
+
+In the samples/ folder, i included a few suggested scripts that you could
+modify to suit your deployment scheme. I use Gentoo for all of my servers and
+i use dump/restore to install all of them. Once you get a working machine,
+I use RIP Linux to boot off a CD/Thumb drive and use make-production-image.sh
+and create a filesystem image. From there, you just dump that image onto each
+machine using install-server.sh and then run the setup-production-network.sh
+to set up the network. Reboot the machine and run that airtruk-config.sh script
+and you're golden. Everything should be as it should on the machine.
+
+Thanks to Jason, he had no idea i was writing this, nor have i seen any bits
+of the code of his application. In fact, i never even went to his presentation
+(sorry!). For more information, see:
+http://en.oreilly.com/rails2009/public/schedule/detail/7879
+
+One more thing. Why Airtruk, you ask? Because it saved everyone from the
+ThunderDome. (That's my proprietary application for managing my enterprise
+application). It fits.
+
